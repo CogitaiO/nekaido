@@ -22,13 +22,13 @@ final selectedCollectionProvider = StateProvider<String?>((ref) => null);
 
 // Динамическое извлечение ВСЕХ существующих подборок из БД
 final allCollectionsProvider = Provider<List<String>>((ref) {
-  final allAnime = ref.watch(libraryProvider).value ??[];
-  final Set<String> uniqueCollections = {};
-  
+  final allAnime = ref.watch(libraryProvider).value ?? [];
+  final uniqueCollections = <String>{};
+
   for (var anime in allAnime) {
     uniqueCollections.addAll(anime.customCollections);
   }
-  
+
   final list = uniqueCollections.toList();
   list.sort(); // Сортируем по алфавиту
   return list;
@@ -36,7 +36,7 @@ final allCollectionsProvider = Provider<List<String>>((ref) {
 
 // Провайдер для фильтрации (ОБНОВЛЕННЫЙ)
 final filteredAnimeProvider = Provider<List<Anime>>((ref) {
-  final allAnime = ref.watch(libraryProvider).value ??[];
+  final allAnime = ref.watch(libraryProvider).value ?? [];
   final query = ref.watch(searchQueryProvider).toLowerCase();
   final index = ref.watch(selectedSidebarIndexProvider);
   final selectedCollection = ref.watch(selectedCollectionProvider);
@@ -49,14 +49,20 @@ final filteredAnimeProvider = Provider<List<Anime>>((ref) {
 
     // 2. Проверка на статус или подборку
     switch (index) {
-      case 1: return anime.status == AnimeStatus.watching;
-      case 2: return anime.status == AnimeStatus.planned;
-      case 3: return anime.status == AnimeStatus.completed;
-      case 4: return anime.status == AnimeStatus.dropped;
+      case 1:
+        return anime.status == AnimeStatus.watching;
+      case 2:
+        return anime.status == AnimeStatus.planned;
+      case 3:
+        return anime.status == AnimeStatus.completed;
+      case 4:
+        return anime.status == AnimeStatus.dropped;
       case 5: // Режим подборок
-        if (selectedCollection == null) return false; // Если подборка не выбрана, ничего не показываем
+        if (selectedCollection == null) {
+          return false; // Если подборка не выбрана, ничего не показываем
+        }
         return anime.customCollections.contains(selectedCollection);
-      case 0: 
+      case 0:
       default:
         return true; // "Вся библиотека"
     }

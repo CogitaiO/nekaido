@@ -19,15 +19,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
   await windowManager.ensureInitialized();
-  await initLogger(); 
+  await initLogger();
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     try {
-      DiscordRPC.initialize(); 
+      DiscordRPC.initialize();
     } catch (e) {
       talker.debug('DiscordRPC initialization failed: $e');
     }
   }
-  WindowOptions windowOptions = const WindowOptions(
+  final windowOptions = const WindowOptions(
     size: Size(1280, 720),
     center: true,
     titleBarStyle: TitleBarStyle.hidden,
@@ -49,9 +49,9 @@ void main() async {
     };
 
     PlatformDispatcher.instance.onError = (error, stack) {
-    talker.handle(error, stack, 'Unhandled asynchronous error');
-    return true; // предотвращает полное падение приложения
-  };
+      talker.handle(error, stack, 'Unhandled asynchronous error');
+      return true; // предотвращает полное падение приложения
+    };
 
     runApp(
       ProviderScope(
@@ -77,11 +77,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(useMaterial3: true),
       // Указываем наш первый экран
-      home: const LibraryScreen(), 
+      home: const LibraryScreen(),
     );
   }
 }
 
 // А LibraryScreen перенеси в отдельный файл в папку presentation!
-
-

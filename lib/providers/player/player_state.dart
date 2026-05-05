@@ -1,4 +1,3 @@
-
 import 'package:media_kit/media_kit.dart';
 import '../../data/services/aniskip_service.dart';
 
@@ -27,31 +26,30 @@ class AppPlayerState {
   final SkipInterval? activeSkip;
 
   AppPlayerState({
-  this.animeId,
-  this.videoPath,
-  this.playlist = const [],
-  this.isPlaying = false,
-  this.position = Duration.zero,
-  this.duration = Duration.zero,
-  this.volume = 100.0,
-  this.isFullscreen = false,
-  this.isUiVisible = true,
-  this.isVideoCompleted = false,
-  this.isPiP = false,
-  this.isSidebarOpen = false,
-  this.windowTitle,
-  this.playbackSpeed = 1.0, 
-
-  this.audioTracks = const [],
-  this.subtitleTracks = const[],
-  this.currentAudio,
-  this.currentSubtitle,
-  this.externalSubsMap = const {}, 
-  this.skipIntervals = const[],
-  this.activeSkip,
+    this.animeId,
+    this.videoPath,
+    this.playlist = const [],
+    this.isPlaying = false,
+    this.position = Duration.zero,
+    this.duration = Duration.zero,
+    this.volume = 100.0,
+    this.isFullscreen = false,
+    this.isUiVisible = true,
+    this.isVideoCompleted = false,
+    this.isPiP = false,
+    this.isSidebarOpen = false,
+    this.windowTitle,
+    this.playbackSpeed = 1.0,
+    this.audioTracks = const [],
+    this.subtitleTracks = const [],
+    this.currentAudio,
+    this.currentSubtitle,
+    this.externalSubsMap = const {},
+    this.skipIntervals = const [],
+    this.activeSkip,
   });
 
-    AppPlayerState copyWith({
+  AppPlayerState copyWith({
     int? animeId,
     String? videoPath,
     List<String>? playlist,
@@ -66,7 +64,6 @@ class AppPlayerState {
     bool? isSidebarOpen,
     String? windowTitle,
     double? playbackSpeed,
-
     List<AudioTrack>? audioTracks,
     List<SubtitleTrack>? subtitleTracks,
     AudioTrack? currentAudio,
@@ -74,7 +71,7 @@ class AppPlayerState {
     Map<String, List<String>>? externalSubsMap,
     List<SkipInterval>? skipIntervals,
     SkipInterval? activeSkip,
-    bool clearActiveSkip = false, 
+    bool clearActiveSkip = false,
   }) {
     return AppPlayerState(
       animeId: animeId ?? this.animeId,
@@ -95,7 +92,7 @@ class AppPlayerState {
       isPiP: isPiP ?? this.isPiP,
       isSidebarOpen: isSidebarOpen ?? this.isSidebarOpen,
       skipIntervals: skipIntervals ?? this.skipIntervals,
-      activeSkip: clearActiveSkip ? null : (activeSkip ?? this.activeSkip), 
+      activeSkip: clearActiveSkip ? null : (activeSkip ?? this.activeSkip),
       windowTitle: windowTitle ?? this.windowTitle,
       playbackSpeed: playbackSpeed ?? this.playbackSpeed,
     );

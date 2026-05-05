@@ -4,7 +4,7 @@ import '../../core/logger.dart';
 
 class DiscordService {
   // Вставь сюда свой Application ID из Discord Developer Portal
-  static const String _clientId = '1499787664402939954'; 
+  static const String _clientId = '1499787664402939954';
   DiscordRPC? _rpc;
   bool _isInitialized = false;
 
@@ -40,22 +40,25 @@ class DiscordService {
       // Формируем красивый таймер
       int? endTimestamp;
 
-      if (isPlaying && currentPositionSeconds != null && durationSeconds != null && durationSeconds > 0) {
+      if (isPlaying &&
+          currentPositionSeconds != null &&
+          durationSeconds != null &&
+          durationSeconds > 0) {
         // Подсчитываем, когда закончится серия в реальном времени
         final now = DateTime.now().millisecondsSinceEpoch;
         final leftSeconds = durationSeconds - currentPositionSeconds;
-        endTimestamp = now + (leftSeconds * 1000); 
+        endTimestamp = now + (leftSeconds * 1000);
       }
 
       _rpc!.updatePresence(
         DiscordPresence(
-          state: episode, 
-          details: title, 
-          largeImageKey: 'logo', 
-          largeImageText: 'Nekaido', 
-          smallImageKey: isPlaying ? 'play' : 'pause', 
-          smallImageText: isPlaying ? 'Смотрит' : 'На паузе', 
-          endTimeStamp: endTimestamp, 
+          state: episode,
+          details: title,
+          largeImageKey: 'logo',
+          largeImageText: 'Nekaido',
+          smallImageKey: isPlaying ? 'play' : 'pause',
+          smallImageText: isPlaying ? 'Смотрит' : 'На паузе',
+          endTimeStamp: endTimestamp,
         ),
       );
     } catch (e) {

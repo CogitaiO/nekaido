@@ -11,16 +11,17 @@ class Escapable extends StatelessWidget {
   Widget build(BuildContext context) {
     return CallbackShortcuts(
       bindings: {
-        const SingleActivator(LogicalKeyboardKey.escape): onEscape ?? () {
-          if (context.mounted) {
-            FocusManager.instance.primaryFocus?.unfocus(); 
-            Navigator.maybePop(context);
-          }
-        },
+        const SingleActivator(LogicalKeyboardKey.escape): onEscape ??
+            () {
+              if (context.mounted) {
+                FocusManager.instance.primaryFocus?.unfocus();
+                Navigator.maybePop(context);
+              }
+            },
       },
       child: Focus(
         autofocus: true,
-        descendantsAreFocusable: true, 
+        descendantsAreFocusable: true,
         child: child,
       ),
     );

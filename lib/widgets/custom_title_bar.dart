@@ -5,7 +5,7 @@ import 'package:window_manager/window_manager.dart';
 class CustomTitleBar extends StatefulWidget {
   final Color backgroundColor;
   final Widget? leading; // Кастомная кнопка слева (например, Назад)
-  final Widget? title;   // Кастомный текст/виджет по центру
+  final Widget? title; // Кастомный текст/виджет по центру
 
   const CustomTitleBar({
     super.key,
@@ -63,16 +63,18 @@ class _CustomTitleBarState extends State<CustomTitleBar> with WindowListener {
 
   @override
   Widget build(BuildContext context) {
-    if (!Platform.isWindows && !Platform.isLinux && !Platform.isMacOS) return const SizedBox.shrink();
+    if (!Platform.isWindows && !Platform.isLinux && !Platform.isMacOS) {
+      return const SizedBox.shrink();
+    }
     if (_isPiP) return const SizedBox.shrink(); // В PiP шапка не нужна вообще
 
     return Container(
       height: 40, // Сделали чуть выше для удобства хвата
       color: widget.backgroundColor,
       child: Row(
-        children:[
+        children: [
           // === ЛЕВАЯ ЧАСТЬ (Логотип или кнопка Назад) ===
-          if (widget.leading != null) 
+          if (widget.leading != null)
             widget.leading!
           else ...[
             const SizedBox(width: 16),
@@ -85,18 +87,22 @@ class _CustomTitleBarState extends State<CustomTitleBar> with WindowListener {
             widget.title!
           else
             const Text(
-              'Nekaido', 
-              style: TextStyle(color: Colors.white70, fontSize: 13, fontWeight: FontWeight.bold, letterSpacing: 1),
+              'Nekaido',
+              style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1),
             ),
 
           // === ЦЕНТР: Зона перетаскивания ===
           // Если мы в FullScreen, перетаскивать нечего, но зону оставляем пустой
           Expanded(
-            child: _isFullScreen 
-              ? const SizedBox.shrink() 
-              : DragToMoveArea(
-                  child: Container(color: Colors.transparent),
-                ),
+            child: _isFullScreen
+                ? const SizedBox.shrink()
+                : DragToMoveArea(
+                    child: Container(color: Colors.transparent),
+                  ),
           ),
 
           // === ПРАВАЯ ЧАСТЬ: Кнопки ОС ===
@@ -164,7 +170,9 @@ class _WindowButtonState extends State<_WindowButton> {
           color: _isHovered ? widget.hoverColor : Colors.transparent,
           child: Icon(
             widget.icon,
-            color: _isHovered && widget.hoverColor != Colors.white24 ? Colors.white : Colors.white70,
+            color: _isHovered && widget.hoverColor != Colors.white24
+                ? Colors.white
+                : Colors.white70,
             size: widget.iconSize,
           ),
         ),

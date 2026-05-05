@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:window_manager/window_manager.dart';
 import '../../../../providers/player/player_provider.dart';
 
-class PipOverlay extends ConsumerWidget{
+class PipOverlay extends ConsumerWidget {
   const PipOverlay({super.key});
 
   @override
@@ -15,7 +15,7 @@ class PipOverlay extends ConsumerWidget{
 
     return IgnorePointer(
       ignoring: !isVisible,
-      child: AnimatedOpacity (
+      child: AnimatedOpacity(
         opacity: isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 200),
         child: Container(
@@ -30,18 +30,18 @@ class PipOverlay extends ConsumerWidget{
                   ),
                 ),
               ),
-
               Center(
                 child: IconButton(
                   iconSize: 48,
                   icon: Icon(
-                    isPlaying ? Icons.pause_circle_filled : Icons.play_circle_fill,
+                    isPlaying
+                        ? Icons.pause_circle_filled
+                        : Icons.play_circle_fill,
                     color: Colors.white,
                   ),
                   onPressed: () => notifier.togglePlay(),
                 ),
               ),
-
               Positioned(
                 bottom: 8,
                 left: 8,
@@ -52,12 +52,15 @@ class PipOverlay extends ConsumerWidget{
                     IconButton(
                       iconSize: 20,
                       icon: Icon(
-                        volume == 0 ? Icons.volume_off : (volume < 50 ? Icons.volume_down : Icons.volume_up),
+                        volume == 0
+                            ? Icons.volume_off
+                            : (volume < 50
+                                ? Icons.volume_down
+                                : Icons.volume_up),
                         color: Colors.white,
                       ),
                       onPressed: () => notifier.toggleMute(),
                     ),
-
                     IconButton(
                       iconSize: 20,
                       tooltip: "Вернуться",
